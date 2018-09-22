@@ -459,7 +459,7 @@ export class NguCarousel extends NguCarouselStore
       this.items = this.inputs.grid[this.deviceType];
       this.itemWidth = this.carouselWidth / this.items;
     } else {
-      this.items = Math.trunc(this.carouselWidth / this.inputs.grid.all);
+      this.items = Math.ceil(this.carouselWidth / this.inputs.grid.all);
       this.itemWidth = this.inputs.grid.all;
       this.deviceType = 'all';
     }

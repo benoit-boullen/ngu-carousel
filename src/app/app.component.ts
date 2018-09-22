@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NguCarouselConfig } from 'carousel';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +22,8 @@ export class AppComponent implements OnInit {
     5: []
   };
   public carouselTile: NguCarouselConfig = {
-    grid: { xs: 1, sm: 1, md: 3, lg: 3, all: 0 },
-    slide: 3,
+    grid: { xs: 1, sm: 1, md: 3, lg: 3, all: 400 },
+    slide: 2,
     speed: 350,
     interval: {
       timing: 3000,
