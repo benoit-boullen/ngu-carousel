@@ -204,10 +204,12 @@ export class NguCarousel extends NguCarouselStore
         const context = new NguCarouselOutletContext<any>(data[currentIndex]);
         // console.log(context);
         context.index = currentIndex;
-        // if (item.previousIndex == null) {
-        viewContainer.createEmbeddedView(node.template, context, currentIndex);
-        // } else if (currentIndex == null) {
-        //   viewContainer.remove(adjustedPreviousIndex);
+        if (item.previousIndex == null) {
+          viewContainer.createEmbeddedView(node.template, context, currentIndex);
+        } else if (currentIndex == null) {
+          // delete items when they doesn't exists anymore
+          viewContainer.remove(adjustedPreviousIndex);
+        }
         //   this._levels.delete(item.item);
         // } else {
         //   const view = viewContainer.get(adjustedPreviousIndex);

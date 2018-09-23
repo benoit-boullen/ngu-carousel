@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NguCarousel, NguCarouselConfig } from '../../projects/carousel/src/public_api';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,14 @@ export class AppComponent implements OnInit {
     'assets/holi.jpg'
   ];
   public carouselTileItems: Array<any> = [0, 1, 2, 3, 4, 5];
+
+
+  public listItems1: Array<any> = [6,7,8,9,10];
+  public listItems2: Array<any> = [20];
+
+  @ViewChild(NguCarousel)
+  carousel: NguCarousel;
+
   public carouselTiles = {
     0: [],
     1: [],
@@ -43,6 +52,16 @@ export class AppComponent implements OnInit {
     this.carouselTileItems.forEach(el => {
       this.carouselTileLoad(el);
     });
+  }
+
+  changeToItem1() {
+    this.carouselTileItems = this.listItems1;
+    this.carousel.reset();
+  }
+
+  changeToItem2() {
+    this.carouselTileItems = this.listItems2;
+    this.carousel.reset()
   }
 
   public carouselTileLoad(j) {
