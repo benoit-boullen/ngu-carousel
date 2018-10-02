@@ -1,12 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NguCarousel, NguCarouselConfig } from '../../projects/carousel/src/public_api';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit,
+  ChangeDetectorRef
+} from '@angular/core';
+import { NguCarouselConfig } from 'carousel';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   imgags = [
     'assets/bg.jpg',
     'assets/car.png',
@@ -43,9 +50,12 @@ export class AppComponent implements OnInit {
     },
     load: 2,
     velocity: 0,
+    loop: true,
     touch: true,
+    animation: 'lazy',
     easing: 'cubic-bezier(.17,.67,.83,.67)'
   };
+  constructor(private cdr: ChangeDetectorRef) {}
 
   constructor() {
   }
@@ -54,6 +64,10 @@ export class AppComponent implements OnInit {
     this.carouselTileItems.forEach(el => {
       this.carouselTileLoad(el);
     });
+  }
+
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
   }
 
   changeToItem1() {
@@ -70,7 +84,7 @@ export class AppComponent implements OnInit {
     // console.log(this.carouselTiles[j]);
     const len = this.carouselTiles[j].length;
     if (len <= 30) {
-      for (let i = len; i < len + 15; i++) {
+      for (let i = len; i < len + 100; i++) {
         this.carouselTiles[j].push(
           this.imgags[Math.floor(Math.random() * this.imgags.length)]
         );

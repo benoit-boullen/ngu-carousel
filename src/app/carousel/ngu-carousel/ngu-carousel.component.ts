@@ -26,6 +26,7 @@ import {
   IterableChanges
 } from '@angular/core';
 import {
+  NguCarouselItemDirective,
   NguCarouselNextDirective,
   NguCarouselPrevDirective,
   NguCarouselDefDirective,
@@ -224,12 +225,10 @@ export class NguCarousel extends NguCarouselStore
         const context = new NguCarouselOutletContext<any>(data[currentIndex]);
         // console.log(context);
         context.index = currentIndex;
-        if (item.previousIndex == null) {
-          viewContainer.createEmbeddedView(node.template, context, currentIndex);
-        } else if (currentIndex == null) {
-          // delete items when they doesn't exists anymore
-          viewContainer.remove(adjustedPreviousIndex);
-        }
+        // if (item.previousIndex == null) {
+        viewContainer.createEmbeddedView(node.template, context, currentIndex);
+        // } else if (currentIndex == null) {
+        //   viewContainer.remove(adjustedPreviousIndex);
         //   this._levels.delete(item.item);
         // } else {
         //   const view = viewContainer.get(adjustedPreviousIndex);
@@ -264,7 +263,7 @@ export class NguCarousel extends NguCarouselStore
 
     this._buttonControl();
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (window) {
       this._carouselInterval();
       if (!this.vertical.enabled) {
         this._touch();
@@ -338,7 +337,6 @@ export class NguCarousel extends NguCarouselStore
 
       hammertime.on('panstart', (ev: any) => {
         this.carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
-        console.log('panstart');
         this.touchTransform = this.transform[this.deviceType];
         this.dexVal = 0;
         this._setStyle(this.nguItemsContainer.nativeElement, 'transition', '');
@@ -352,16 +350,13 @@ export class NguCarousel extends NguCarouselStore
         });
       } else {
         hammertime.on('panleft', (ev: any) => {
-          console.log('panleft');
           this._touchHandling('panleft', ev);
         });
         hammertime.on('panright', (ev: any) => {
-          console.log('panright');
           this._touchHandling('panright', ev);
         });
       }
       hammertime.on('panend', (ev: any) => {
-        console.log('panend');
         if (Math.abs(ev.velocity) >= this.velocity) {
           this.touch.velocity = ev.velocity;
           let direc = 0;
@@ -473,7 +468,7 @@ export class NguCarousel extends NguCarouselStore
       this.items = this.inputs.grid[this.deviceType];
       this.itemWidth = this.carouselWidth / this.items;
     } else {
-      this.items = Math.ceil(this.carouselWidth / this.inputs.grid.all);
+      this.items = Math.trunc(this.carouselWidth / this.inputs.grid.all);
       this.itemWidth = this.inputs.grid.all;
       this.deviceType = 'all';
     }

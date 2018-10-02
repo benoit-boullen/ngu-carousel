@@ -1,12 +1,13 @@
 {
   "name": "ngu-carousel",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "run-lib": "ng build --prod --project carousel && ng serve",
     "e2e": "ng e2e"
   },
   "private": true,
