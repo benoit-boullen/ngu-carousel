@@ -3,9 +3,10 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   AfterViewInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
-import { NguCarouselConfig } from 'carousel';
+import { NguCarousel, NguCarouselConfig } from '../../projects/carousel/src/public_api';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     'assets/holi.jpg'
   ];
   public carouselTileItems: Array<any> = [0, 1, 2, 3, 4, 5];
-
 
   public listItems1: Array<any> = [6, 7, 8, 9, 10];
   public listItems2: Array<any> = [20];
@@ -55,10 +55,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     animation: 'lazy',
     easing: 'cubic-bezier(.17,.67,.83,.67)'
   };
+
   constructor(private cdr: ChangeDetectorRef) {}
 
-  constructor() {
-  }
 
   ngOnInit() {
     this.carouselTileItems.forEach(el => {
