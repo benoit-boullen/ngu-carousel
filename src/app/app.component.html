@@ -1,7 +1,10 @@
 <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="carouselTileItems">
   <ngu-tile *nguCarouselDef="let item; let i = index">
 
-    {{ item }}
+    <div class="tile">
+      {{ item }}
+    </div>
+
 
   </ngu-tile>
   <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>

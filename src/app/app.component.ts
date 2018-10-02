@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   public carouselTileItems: Array<any> = [0, 1, 2, 3, 4, 5];
 
 
-  public listItems1: Array<any> = [6,7,8,9,10];
+  public listItems1: Array<any> = [6, 7, 8, 9, 10];
   public listItems2: Array<any> = [20];
 
   @ViewChild(NguCarousel)
@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
     5: []
   };
   public carouselTile: NguCarouselConfig = {
-    grid: { xs: 1, sm: 1, md: 3, lg: 3, all: 400 },
-    slide: 2,
+    grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 400},
+    slide: 1,
     speed: 350,
     interval: {
       timing: 3000,
@@ -46,7 +46,9 @@ export class AppComponent implements OnInit {
     touch: true,
     easing: 'cubic-bezier(.17,.67,.83,.67)'
   };
-  constructor() {}
+
+  constructor() {
+  }
 
   ngOnInit() {
     this.carouselTileItems.forEach(el => {
@@ -61,7 +63,7 @@ export class AppComponent implements OnInit {
 
   changeToItem2() {
     this.carouselTileItems = this.listItems2;
-    this.carousel.reset()
+    this.carousel.reset();
   }
 
   public carouselTileLoad(j) {

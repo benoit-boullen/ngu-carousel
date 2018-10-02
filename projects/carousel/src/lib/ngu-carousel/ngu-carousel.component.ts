@@ -26,7 +26,6 @@ import {
   IterableChanges
 } from '@angular/core';
 import {
-  NguCarouselItemDirective,
   NguCarouselNextDirective,
   NguCarouselPrevDirective,
   NguCarouselDefDirective,
@@ -331,6 +330,7 @@ export class NguCarousel extends NguCarouselStore
       hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
 
       hammertime.on('panstart', (ev: any) => {
+        console.log('panstart');
         this.carouselWidth = this.carouselInner1.nativeElement.offsetWidth;
         this.touchTransform = this.transform[this.deviceType];
         this.dexVal = 0;
@@ -345,13 +345,16 @@ export class NguCarousel extends NguCarouselStore
         });
       } else {
         hammertime.on('panleft', (ev: any) => {
+          console.log('panleft');
           this._touchHandling('panleft', ev);
         });
         hammertime.on('panright', (ev: any) => {
+          console.log('panright');
           this._touchHandling('panright', ev);
         });
       }
       hammertime.on('panend', (ev: any) => {
+        console.log('panend');
         if (Math.abs(ev.velocity) >= this.velocity) {
           this.touch.velocity = ev.velocity;
           let direc = 0;
