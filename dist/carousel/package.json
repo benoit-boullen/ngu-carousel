@@ -1,0 +1,28 @@
+{
+  "version": "1.5.2",
+  "name": "benoit.boullen/carousel",
+  "license": "MIT",
+  "description": "Angular Universal carousel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benoit-boullen/ngu-carousel"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "hammerjs": "2.0.8"
+  },
+  "main": "bundles/benoit.boullen-carousel.umd.js",
+  "module": "fesm5/benoit.boullen-carousel.js",
+  "es2015": "fesm2015/benoit.boullen-carousel.js",
+  "esm5": "esm5/benoit.boullen-carousel.js",
+  "esm2015": "esm2015/benoit.boullen-carousel.js",
+  "fesm5": "fesm5/benoit.boullen-carousel.js",
+  "fesm2015": "fesm2015/benoit.boullen-carousel.js",
+  "typings": "benoit.boullen-carousel.d.ts",
+  "metadata": "benoit.boullen-carousel.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

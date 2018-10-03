@@ -1,0 +1,13 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of carousel
+ */
+export { NguCarouselConfig } from './lib/ngu-carousel/ngu-carousel';
+export { NguCarouselStore } from './lib/ngu-carousel/ngu-carousel';
+export { NguCarousel } from './lib/ngu-carousel/ngu-carousel.component';
+export { NguCarouselModule } from './lib/ngu-carousel.module';
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2Jlbm9pdC5ib3VsbGVuL2Nhcm91c2VsLyIsInNvdXJjZXMiOlsicHVibGljX2FwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsT0FBTyxFQUFFLGlCQUFpQixFQUFFLE1BQU0saUNBQWlDLENBQUM7QUFFcEUsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0saUNBQWlDLENBQUM7QUFFbkUsT0FBTyxFQUFFLFdBQVcsRUFBRSxNQUFNLDJDQUEyQyxDQUFDO0FBRXhFLE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxNQUFNLDJCQUEyQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcclxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIGNhcm91c2VsXHJcbiAqL1xyXG5cclxuZXhwb3J0IHsgTmd1Q2Fyb3VzZWxDb25maWcgfSBmcm9tICcuL2xpYi9uZ3UtY2Fyb3VzZWwvbmd1LWNhcm91c2VsJztcclxuXHJcbmV4cG9ydCB7IE5ndUNhcm91c2VsU3RvcmUgfSBmcm9tICcuL2xpYi9uZ3UtY2Fyb3VzZWwvbmd1LWNhcm91c2VsJztcclxuXHJcbmV4cG9ydCB7IE5ndUNhcm91c2VsIH0gZnJvbSAnLi9saWIvbmd1LWNhcm91c2VsL25ndS1jYXJvdXNlbC5jb21wb25lbnQnO1xyXG5cclxuZXhwb3J0IHsgTmd1Q2Fyb3VzZWxNb2R1bGUgfSBmcm9tICcuL2xpYi9uZ3UtY2Fyb3VzZWwubW9kdWxlJztcclxuIl19

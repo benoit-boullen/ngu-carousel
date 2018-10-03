@@ -56,7 +56,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     easing: 'cubic-bezier(.17,.67,.83,.67)'
   };
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) {
+
+  }
 
 
   ngOnInit() {
