@@ -34,12 +34,15 @@ import {
 import { NguCarouselConfig, NguCarouselOutletContext, NguCarouselStore } from './ngu-carousel';
 import { empty, fromEvent, interval, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { mapTo, startWith, switchMap } from 'rxjs/operators';
+import { NguCarouselService } from '../ngu-carousel.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngu-carousel',
   templateUrl: 'ngu-carousel.component.html',
   styleUrls: ['ngu-carousel.component.scss'],
+  viewProviders: [NguCarouselService],
+  providers: [NguCarouselService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 // tslint:disable-next-line:component-class-suffix
@@ -70,7 +73,7 @@ export class NguCarousel extends NguCarouselStore
   private carouselLoad = new EventEmitter();
   // tslint:disable-next-line:no-output-on-prefix
   @Output('onMove')
-  private onMove = new EventEmitter<NguCarousel>();
+  public onMove = new EventEmitter<NguCarousel>();
   private _defaultNodeDef: NguCarouselDefDirective<any> | null;
   @ContentChildren(NguCarouselDefDirective)
   private _defDirec: QueryList<NguCarouselDefDirective<any>>;
@@ -85,14 +88,17 @@ export class NguCarousel extends NguCarouselStore
   private onResize: any;
   private onScrolling: any;
 
+
   constructor(
     private _el: ElementRef,
     private _renderer: Renderer2,
     private _differs: IterableDiffers,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private carouselService: NguCarouselService
   ) {
     super();
+    this.carouselService.setCarousel(this);
   }
 
   _dataSource: any;
@@ -348,8 +354,7 @@ export class NguCarousel extends NguCarouselStore
 
       hammertime.on('panstart', (ev: any) => {
         this.carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
-        console.log('panstart');
-        this.touchTransform = this.transform[this.deviceType];
+        // this.touchTransform = this.transform[this.deviceType];
         this.dexVal = 0;
         this._setStyle(this.nguItemsContainer.nativeElement, 'transition', '');
       });
@@ -362,16 +367,13 @@ export class NguCarousel extends NguCarouselStore
         });
       } else {
         hammertime.on('panleft', (ev: any) => {
-          console.log('panleft');
           this._touchHandling('panleft', ev);
         });
         hammertime.on('panright', (ev: any) => {
-          console.log('panright');
           this._touchHandling('panright', ev);
         });
       }
       hammertime.on('panend', (ev: any) => {
-        console.log('panend');
         if (Math.abs(ev.velocity) >= this.velocity) {
           this.touch.velocity = ev.velocity;
           let direc = 0;
@@ -388,7 +390,7 @@ export class NguCarousel extends NguCarouselStore
             'transition',
             'transform 324ms cubic-bezier(0, 0, 0.2, 1)'
           );
-          this._setStyle(this.nguItemsContainer.nativeElement, 'transform', '');
+          // this._setStyle(this.nguItemsContainer.nativeElement, 'transform', '');
         }
       });
       hammertime.on('hammer.input', function (ev) {
@@ -421,6 +423,7 @@ export class NguCarousel extends NguCarouselStore
     this.touch.swipe = e;
     this._setTouchTransfrom(e, valt);
     this._setTransformFromTouch();
+
   }
 
   private _setTouchTransfrom(e: string, valt: number) {
@@ -434,6 +437,15 @@ export class NguCarousel extends NguCarouselStore
       this.touchTransform = 0;
     }
     const type = this.type === 'responsive' ? '%' : 'px';
+
+    const maxTranslate = (this.itemWidth * this._dataSource.length) - this.carouselMain1.nativeElement.offsetWidth;
+    if (maxTranslate <= this.touchTransform) {
+      this.touchTransform = maxTranslate;
+      return;
+    }
+
+
+    this.onMove.emit(this);
     this._setStyle(
       this.nguItemsContainer.nativeElement,
       'transform',
@@ -711,7 +723,10 @@ export class NguCarousel extends NguCarouselStore
     this.itemLength = this.dataSource.length;
     this._transformStyle(currentSlide);
     this.currentSlide = currentSlide;
-    this.onMove.emit(this);
+    setTimeout(() => {
+      this.onMove.emit(this);
+    }, 400);
+
     this._carouselPointActiver();
     this._carouselLoadTrigger();
     this._buttonControl();
@@ -756,6 +771,7 @@ export class NguCarousel extends NguCarouselStore
       @media (min-width: 1200px) {${this._transformString('lg', slide)} }`;
     } else {
       this.transform.all = this.inputs.grid.all * slide;
+      this.touchTransform = this.transform.all;
       slideCss = `${this.styleid} { transform: translate3d(${
         this.directionSym
         }${this.transform.all}px, 0, 0);`;

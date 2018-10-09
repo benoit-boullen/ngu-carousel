@@ -15,6 +15,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NguCarousel } from './ngu-carousel/ngu-carousel.component';
 import { NguTileComponent } from './ngu-tile/ngu-tile.component';
+import { NguCarouselService } from './ngu-carousel.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -39,6 +40,9 @@ import { NguTileComponent } from './ngu-tile/ngu-tile.component';
     NguCarouselPrevDirective,
     NguCarouselDefDirective,
     NguCarouselOutlet
+  ],
+  providers: [
+    NguCarouselService
   ]
 })
 export class NguCarouselModule {}
