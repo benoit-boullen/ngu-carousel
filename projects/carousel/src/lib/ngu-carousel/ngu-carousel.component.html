@@ -1,11 +1,21 @@
-<div #ngucarousel class="ngucarousel">
-  <div #touchContainer class="ngu-touch-container">
-    <div #nguItemsContainer class="ngucarousel-items">
-      <ng-container nguCarouselOutlet></ng-container>
+<ng-content select="[NguCarouselPoint]"></ng-content>
+
+<div class="carousel-wrapper">
+  <div class="btn-wrapper">
+    <ng-content select="[NguCarouselPrev]"></ng-content>
+  </div>
+
+  <div #ngucarousel class="ngucarousel">
+
+    <div #touchContainer class="ngu-touch-container">
+      <div #nguItemsContainer class="ngucarousel-items">
+        <ng-container nguCarouselOutlet></ng-container>
+      </div>
     </div>
   </div>
-  <div class="nguclearFix"></div>
-  <ng-content select="[NguCarouselPrev]"></ng-content>
-  <ng-content select="[NguCarouselNext]"></ng-content>
+
+  <div class="btn-wrapper">
+    <ng-content select="[NguCarouselNext]"></ng-content>
+  </div>
 </div>
-<ng-content select="[NguCarouselPoint]"></ng-content>
+

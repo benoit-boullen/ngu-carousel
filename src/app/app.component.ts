@@ -1,15 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  AfterViewInit,
-  ChangeDetectorRef,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NguCarouselConfig } from 'carousel';
-import { Observable, interval, of } from 'rxjs';
-import { startWith, switchMap, take, map } from 'rxjs/operators';
+import { interval, Observable } from 'rxjs';
+import { map, startWith, take } from 'rxjs/operators';
 import { slider } from './slide-animation';
+import { NguCarousel } from '../../projects/carousel/src/lib/ngu-carousel/ngu-carousel.component';
+
 
 @Component({
   selector: 'app-root',
@@ -31,7 +26,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public listItems2: Array<any> = [20];
 
   @ViewChild(NguCarousel)
-  carousel: NguCarousel;
+  carousel: NguCarousel<any>;
+
 
   public carouselTiles = {
     0: [],
@@ -62,24 +58,20 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public carouselTileItems$: Observable<number[]>;
   public carouselTileConfig: NguCarouselConfig = {
-    grid: { xs: 1, sm: 1, md: 1, lg: 5, all: 0 },
+    grid: {xs: 1, sm: 1, md: 1, lg: 5, all: 0},
     speed: 250,
     point: {
       visible: true
     },
     touch: true,
     loop: true,
-    interval: { timing: 1500 },
+    interval: {timing: 1500},
     animation: 'lazy'
   };
   tempData: any[];
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
   constructor(private cdr: ChangeDetectorRef) {
-
   }
-
 
   ngOnInit() {
     this.tempData = [];

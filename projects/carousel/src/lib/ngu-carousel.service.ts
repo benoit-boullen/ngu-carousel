@@ -5,17 +5,17 @@ import { NguCarousel } from './ngu-carousel/ngu-carousel.component';
 export class NguCarouselService {
 
 
-  carousel: NguCarousel;
+  carousel: NguCarousel<any>;
 
   constructor() {
 
   }
 
-  setCarousel(carousel: NguCarousel) {
+  setCarousel(carousel: NguCarousel<any>) {
     this.carousel = carousel;
   }
 
-  getCarousel(): NguCarousel {
+  getCarousel(): NguCarousel<any> {
     return this.carousel;
   }
 

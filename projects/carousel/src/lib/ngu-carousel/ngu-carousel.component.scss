@@ -6,70 +6,47 @@
   }
 }
 
+.carousel-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .ngucarousel {
-  // height: 100%;
-  // .ngucarousel-inner {
   position: relative;
   overflow: hidden;
   height: 100%;
+  flex-grow: 1;
+
   .ngucarousel-items {
     position: relative;
     display: flex;
     height: 100%;
-  } // }
+  }
 }
 
 .nguvertical {
   flex-direction: column;
 }
 
-.banner {
-  .ngucarouselPointDefault {
-    .ngucarouselPoint {
-      position: absolute;
-      width: 100%;
-      bottom: 20px;
-      li {
-        background: rgba(255, 255, 255, 0.55);
-        &.active {
-          background: white;
-        }
-        &:hover {
-          cursor: pointer;
-        }
-      }
+.myPoint {
+  list-style-type: none;
+  text-align: right;
+  margin: 0;
+  white-space: nowrap;
+  overflow: auto;
+  box-sizing: border-box;
+  li {
+    background: #6b6b6b;
+    display: inline-block;
+    padding: 4px;
+    margin: 0 3px;
+    transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    transition: 0.4s;
+    opacity: 0.5;
+
+    &.active {
+      opacity: 1;
+      transform: scale(1.2);
     }
   }
-}
-
-.ngucarouselPointDefault {
-  .ngucarouselPoint {
-    list-style-type: none;
-    text-align: center;
-    padding: 12px;
-    margin: 0;
-    white-space: nowrap;
-    overflow: auto;
-    box-sizing: border-box;
-    li {
-      display: inline-block;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.55);
-      padding: 4px;
-      margin: 0 4px;
-      transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      transition: 0.4s;
-      &.active {
-        background: #6b6b6b;
-        transform: scale(1.8);
-      }
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-.nguclearFix {
-  clear: both;
 }
