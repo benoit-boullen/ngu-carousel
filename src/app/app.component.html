@@ -1,16 +1,25 @@
+
+
 <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="carouselTileItems">
 
-  <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
+  <div NguCarouselPrev class="btn-carousel leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">
+    <div>
+      &lt;
+    </div>
+  </div>
 
-  <ngu-item nguCarouselDef="let item; let i = index">
+  <ngu-item *nguCarouselDef="let item; let i = index">
 
     <div class="tile">
       {{ item }}
     </div>
 
-
   </ngu-item>
-  <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
+  <div NguCarouselNext class="btn-carousel rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">
+    <div>
+      &gt;
+    </div>
+  </div>
 
   <ul class="myPoint" NguCarouselPoint>
     <li *ngFor="let i of myCarousel.pointNumbers; let i = index" [class.active]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)"></li>

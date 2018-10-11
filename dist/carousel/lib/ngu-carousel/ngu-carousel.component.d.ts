@@ -1,13 +1,15 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
-import { NguCarouselDefDirective, NguCarouselOutlet } from './../ngu-carousel.directive';
-import { NguCarouselStore } from './ngu-carousel';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, Renderer2, TrackByFunction } from '@angular/core';
 import { Subscription } from 'rxjs';
-export declare class NguCarousel extends NguCarouselStore implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, DoCheck {
+import { NguCarouselStore } from './ngu-carousel';
+import { NguCarouselService } from '../ngu-carousel.service';
+import { NguCarouselOutlet } from '../ngu-carousel.directive';
+export declare class NguCarousel<T> extends NguCarouselStore implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, DoCheck {
     private _el;
     private _renderer;
     private _differs;
     private platformId;
     private cdr;
+    private carouselService;
     _dataSubscription: Subscription;
     _dataDiffer: IterableDiffer<{}>;
     styleid: string;
@@ -15,21 +17,21 @@ export declare class NguCarousel extends NguCarouselStore implements OnInit, Aft
     isHovered: boolean;
     arrayChanges: IterableChanges<{}>;
     carouselInt: Subscription;
+    private _defaultNodeDef;
+    private _defDirec;
+    _nodeOutlet: NguCarouselOutlet;
+    pointNumbers: Array<any>;
     listener1: () => void;
     listener2: () => void;
     listener3: () => void;
-    listener8: () => void;
-    _nodeOutlet: NguCarouselOutlet;
-    pointNumbers: Array<any>;
+    listener4: () => void;
     private directionSym;
     private carouselCssNode;
     private pointIndex;
     private withAnim;
     private inputs;
     private carouselLoad;
-    private onMove;
-    private _defaultNodeDef;
-    private _defDirec;
+    onMove: EventEmitter<NguCarousel<T>>;
     private carouselMain1;
     private nguItemsContainer;
     private touchContainer;
@@ -37,9 +39,10 @@ export declare class NguCarousel extends NguCarouselStore implements OnInit, Aft
     private carousel;
     private onResize;
     private onScrolling;
-    constructor(_el: ElementRef, _renderer: Renderer2, _differs: IterableDiffers, platformId: Object, cdr: ChangeDetectorRef);
+    private _trackByFn;
     _dataSource: any;
     dataSource: any;
+    constructor(_el: ElementRef, _renderer: Renderer2, _differs: IterableDiffers, platformId: Object, cdr: ChangeDetectorRef, carouselService: NguCarouselService);
     /** The setter is used to catch the button if the button has ngIf
      * issue id #91
      */
@@ -48,18 +51,30 @@ export declare class NguCarousel extends NguCarouselStore implements OnInit, Aft
      * issue id #91
      */
     prevBtn: ElementRef;
+    /**
+     * Tracking function that will be used to check the differences in data changes. Used similarly
+     * to `ngFor` `trackBy` function. Optimize Items operations by identifying a Items based on its data
+     * relative to the function to know if a Items should be added/removed/moved.
+     * Accepts a function that takes two parameters, `index` and `item`.
+     */
+    trackBy: TrackByFunction<T>;
     ngOnInit(): void;
     ngDoCheck(): void;
-    _switchDataSource(dataSource: any): any;
-    renderNodeChanges(data: any[], dataDiffer?: IterableDiffer<any>, viewContainer?: ViewContainerRef, parentData?: any): void;
-    _getNodeDef(data: any, i: number): NguCarouselDefDirective<any>;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
-    ngOnDestroy(): void;
     /** Used to reset the carousel */
     reset(withOutAnimation?: boolean): void;
     /** this function is used to scoll the carousel when point is clicked */
     moveTo(slide: number, withOutAnimation?: boolean): void;
+    ngOnDestroy(): void;
+    private _switchDataSource;
+    private renderNodeChanges;
+    /**
+     * Updates the index-related context for each row to reflect any changes in the index of the rows,
+     * e.g. first/last/even/odd.
+     */
+    private _updateItemIndexContext;
+    private _getNodeDef;
     private _observeRenderChanges;
     private _inputValidation;
     private _onResizing;
@@ -94,11 +109,10 @@ export declare class NguCarousel extends NguCarouselStore implements OnInit, Aft
     private _generateID;
     /** handle the auto slide */
     private _carouselInterval;
-    /** pause interval for specific time */
+    private _updateItemIndexContextAni;
     /** animate the carousel items */
     private _carouselAnimator;
-    /** control button for loop */
-    private _buttonControl;
+    private _removeAnimations;
     /** Short form for setElementStyle */
     private _setStyle;
     /** For generating style tag */

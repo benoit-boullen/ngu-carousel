@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     5: []
   };
   public carouselTile: NguCarouselConfig = {
-    grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 400},
+    grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 0},
     slide: 1,
     speed: 350,
     interval: {

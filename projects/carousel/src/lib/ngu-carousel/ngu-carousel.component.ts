@@ -80,7 +80,7 @@ export class NguCarousel<T> extends NguCarouselStore
   // tslint:disable-next-line:no-output-on-prefix
 
   @Output('onMove')
-  private onMove = new EventEmitter<NguCarousel<T>>();
+  public onMove = new EventEmitter<NguCarousel<T>>();
 
   @ViewChild('ngucarousel', {read: ElementRef})
   private carouselMain1: ElementRef;
@@ -608,7 +608,7 @@ export class NguCarousel<T> extends NguCarouselStore
     let dism = '';
     this.styleid = `.${
       this.token
-      } > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
+      } > .carousel-wrapper > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
 
     if (this.inputs.custom === 'banner') {
       this._renderer.addClass(this.carousel, 'banner');
