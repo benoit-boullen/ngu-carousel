@@ -8,15 +8,20 @@
 
 .carousel-wrapper {
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: row;
   overflow: hidden;
+  max-width: 100%;
+}
+
+.ngucarousel-wrapper {
+  order: 2;
+  height: 100%;
+  flex: 10 1 0;
 }
 
 .ngucarousel {
   position: relative;
-
-  height: 100%;
-  flex-grow: 1;
   z-index: 10;
 
   .ngucarousel-items {
@@ -28,6 +33,15 @@
 
 .btn-wrapper {
   z-index: 11;
+  flex: 0 0 auto;
+}
+
+.btn-previous {
+  order: 1;
+}
+
+.btn-next {
+  order: 3;
 }
 
 .nguvertical {

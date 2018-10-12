@@ -32,6 +32,9 @@ import { NguCarouselConfig, NguCarouselOutletContext, NguCarouselStore } from '.
 import { NguCarouselService } from '../ngu-carousel.service';
 import { NguCarouselDefDirective, NguCarouselNextDirective, NguCarouselOutlet, NguCarouselPrevDirective } from '../ngu-carousel.directive';
 
+
+// TODO calculer la taille possible pour le .ngucarsoul en fonction des boutons prev/next
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngu-carousel',
@@ -77,8 +80,8 @@ export class NguCarousel<T> extends NguCarouselStore
   private inputs: NguCarouselConfig;
   @Output('carouselLoad')
   private carouselLoad = new EventEmitter();
-  // tslint:disable-next-line:no-output-on-prefix
 
+  // tslint:disable-next-line:no-output-on-prefix
   @Output('onMove')
   public onMove = new EventEmitter<NguCarousel<T>>();
 
@@ -608,7 +611,7 @@ export class NguCarousel<T> extends NguCarouselStore
     let dism = '';
     this.styleid = `.${
       this.token
-      } > .carousel-wrapper > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
+      } > .carousel-wrapper > .ngucarousel-wrapper > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
 
     if (this.inputs.custom === 'banner') {
       this._renderer.addClass(this.carousel, 'banner');
@@ -939,16 +942,20 @@ export class NguCarousel<T> extends NguCarouselStore
         collectIndex.push(i);
         val = val * 2;
         const viewRef = viewContainer.get(i) as any;
-        const context = viewRef.context as any;
-        context.animate = {value: true, params: {distance: val}};
+        if (viewRef) {
+          const context = viewRef.context as any;
+          context.animate = {value: true, params: {distance: val}};
+        }
       }
     } else {
       for (let i = end - 1; i >= start - 1; i--) {
         collectIndex.push(i);
         val = val * 2;
         const viewRef = viewContainer.get(i) as any;
-        const context = viewRef.context as any;
-        context.animate = {value: true, params: {distance: -val}};
+        if (viewRef) {
+          const context = viewRef.context as any;
+          context.animate = {value: true, params: {distance: -val}};
+        }
       }
     }
     this.cdr.markForCheck();
@@ -961,8 +968,10 @@ export class NguCarousel<T> extends NguCarouselStore
     const viewContainer = this._nodeOutlet.viewContainer;
     indexs.forEach(i => {
       const viewRef = viewContainer.get(i) as any;
-      const context = viewRef.context as any;
-      context.animate = {value: false, params: {distance: 0}};
+      if (viewRef) {
+        const context = viewRef.context as any;
+        context.animate = {value: false, params: {distance: 0}};
+      }
     });
     this.cdr.markForCheck();
   }
