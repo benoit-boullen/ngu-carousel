@@ -10,9 +10,8 @@
 
   <ngu-item *nguCarouselDef="let item; let i = index">
 
-    <div class="tile">
-      {{ item }}
-    </div>
+    <app-item-number [item]="item"></app-item-number>
+
 
   </ngu-item>
   <div NguCarouselNext class="btn-carousel rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">

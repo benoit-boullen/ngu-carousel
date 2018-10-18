@@ -1,4 +1,4 @@
-import { TemplateRef, ViewContainerRef } from '@angular/core';
+import { ElementRef, TemplateRef, ViewContainerRef } from '@angular/core';
 export declare class NguCarouselItemDirective {
 }
 export declare class NguCarouselNextDirective {
@@ -15,4 +15,8 @@ export declare class NguCarouselDefDirective<T> {
 export declare class NguCarouselOutlet {
     viewContainer: ViewContainerRef;
     constructor(viewContainer: ViewContainerRef);
+}
+export declare class NguCarouselWrapperDirective {
+    template: ElementRef<any>;
+    constructor(template: ElementRef<any>);
 }

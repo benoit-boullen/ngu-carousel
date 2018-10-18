@@ -13,7 +13,7 @@ NguTileComponent.decorators = [
                 // tslint:disable-next-line:component-selector
                 selector: 'ngu-tile',
                 template: "<div class=\"tile\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [":host{padding:10px;box-sizing:border-box}.tile{box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12)}"]
+                styles: [":host{padding:10px;box-sizing:border-box}"]
             }] }
 ];
 NguTileComponent.propDecorators = {

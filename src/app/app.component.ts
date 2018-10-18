@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { NguCarouselConfig } from 'carousel';
 import { interval, Observable } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 import { slider } from './slide-animation';
 import { NguCarousel } from '../../projects/carousel/src/lib/ngu-carousel/ngu-carousel.component';
+import { NguCarouselConfig } from '../../projects/carousel/src/public_api';
 
 
 @Component({
@@ -20,7 +20,150 @@ export class AppComponent implements OnInit, AfterViewInit {
     'assets/canberra.jpg',
     'assets/holi.jpg'
   ];
-  public carouselTileItems: Array<any> = [0, 1, 2, 3, 4, 5];
+  public carouselTileItems: Array<any> = [{
+    mediatype: 'video',
+    thumbnails: {
+      large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+    },
+    attributes: {
+      title: 'Title 1'
+    },
+    content: {
+      contentitem_id: '1'
+    }
+  },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    },
+    {
+      mediatype: 'video',
+      thumbnails: {
+        large: 'https://media.at2010.net/videotest/z/e/5/b05b3f865e62048/thumbnail_large.jpg'
+      },
+      attributes: {
+        title: 'Title 1'
+      },
+      content: {
+        contentitem_id: '1'
+      }
+    }];
 
   public listItems1: Array<any> = [6, 7, 8, 9, 10];
   public listItems2: Array<any> = [20];
@@ -38,7 +181,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     5: []
   };
   public carouselTile: NguCarouselConfig = {
-    grid: {xs: 1, sm: 1, md: 3, lg: 3, all: 0},
+    grid: {xs: 1, sm: 1, md: 6, lg: 8, all: 0},
     slide: 1,
     speed: 350,
     interval: {

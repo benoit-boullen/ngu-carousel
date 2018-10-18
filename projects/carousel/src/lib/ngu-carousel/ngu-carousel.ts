@@ -3,7 +3,7 @@ export class NguCarouselStore {
     public touch = new Touch(),
     public vertical = new Vertical(),
     public interval?: CarouselInterval,
-    public transform = new Transfrom(),
+    public transform = new NguTransfrom(),
     public button?: NguButton,
     public visibleItems?: ItemsControl,
     public deviceType?: DeviceType,
@@ -57,7 +57,7 @@ export class Touch {
   velocity: number;
 }
 
-export class Transfrom {
+export class NguTransfrom {
   constructor(
     public xs = 0,
     public sm = 0,
@@ -68,7 +68,7 @@ export class Transfrom {
 }
 
 export class NguCarouselConfig {
-  grid: Transfrom;
+  grid: NguTransfrom;
   slide?: number;
   speed?: number;
   interval?: CarouselInterval;

@@ -4,7 +4,7 @@ import {
   NguCarouselNextDirective,
   NguCarouselOutlet,
   NguCarouselPointDirective,
-  NguCarouselPrevDirective
+  NguCarouselPrevDirective, NguCarouselWrapperDirective
 } from './ngu-carousel.directive';
 import { NguItemComponent } from './ngu-item/ngu-item.component';
 import { NgModule } from '@angular/core';
@@ -24,6 +24,7 @@ import { NguCarouselService } from './ngu-carousel.service';
     NguCarouselNextDirective,
     NguCarouselPrevDirective,
     NguCarouselDefDirective,
+    NguCarouselWrapperDirective,
     NguCarouselOutlet
   ],
   declarations: [
@@ -35,6 +36,7 @@ import { NguCarouselService } from './ngu-carousel.service';
     NguCarouselNextDirective,
     NguCarouselPrevDirective,
     NguCarouselDefDirective,
+    NguCarouselWrapperDirective,
     NguCarouselOutlet
   ],
   providers: [

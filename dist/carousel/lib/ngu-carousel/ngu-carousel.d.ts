@@ -2,7 +2,7 @@ export declare class NguCarouselStore {
     touch: Touch;
     vertical: Vertical;
     interval?: CarouselInterval;
-    transform: Transfrom;
+    transform: NguTransfrom;
     button?: NguButton;
     visibleItems?: ItemsControl;
     deviceType?: DeviceType;
@@ -28,7 +28,7 @@ export declare class NguCarouselStore {
     RTL: boolean;
     point: boolean;
     velocity: number;
-    constructor(touch?: Touch, vertical?: Vertical, interval?: CarouselInterval, transform?: Transfrom, button?: NguButton, visibleItems?: ItemsControl, deviceType?: DeviceType, type?: string, token?: string, items?: number, load?: number, deviceWidth?: number, carouselWidth?: number, itemWidth?: number, slideItems?: number, itemWidthPer?: number, itemLength?: number, currentSlide?: number, easing?: string, speed?: number, loop?: boolean, dexVal?: number, touchTransform?: number, isEnd?: boolean, isFirst?: boolean, isLast?: boolean, RTL?: boolean, point?: boolean, velocity?: number);
+    constructor(touch?: Touch, vertical?: Vertical, interval?: CarouselInterval, transform?: NguTransfrom, button?: NguButton, visibleItems?: ItemsControl, deviceType?: DeviceType, type?: string, token?: string, items?: number, load?: number, deviceWidth?: number, carouselWidth?: number, itemWidth?: number, slideItems?: number, itemWidthPer?: number, itemLength?: number, currentSlide?: number, easing?: string, speed?: number, loop?: boolean, dexVal?: number, touchTransform?: number, isEnd?: boolean, isFirst?: boolean, isLast?: boolean, RTL?: boolean, point?: boolean, velocity?: number);
 }
 export declare type DeviceType = 'xs' | 'sm' | 'md' | 'lg' | 'all';
 export declare type ButtonVisible = 'disabled' | 'hide';
@@ -49,7 +49,7 @@ export declare class Touch {
     swipe: string;
     velocity: number;
 }
-export declare class Transfrom {
+export declare class NguTransfrom {
     xs: number;
     sm: number;
     md: number;
@@ -58,7 +58,7 @@ export declare class Transfrom {
     constructor(xs?: number, sm?: number, md?: number, lg?: number, all?: number);
 }
 export declare class NguCarouselConfig {
-    grid: Transfrom;
+    grid: NguTransfrom;
     slide?: number;
     speed?: number;
     interval?: CarouselInterval;

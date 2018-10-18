@@ -2,7 +2,7 @@ import { AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef
 import { Subscription } from 'rxjs';
 import { NguCarouselStore } from './ngu-carousel';
 import { NguCarouselService } from '../ngu-carousel.service';
-import { NguCarouselOutlet } from '../ngu-carousel.directive';
+import { NguCarouselOutlet, NguCarouselWrapperDirective } from '../ngu-carousel.directive';
 export declare class NguCarousel<T> extends NguCarouselStore implements OnInit, AfterContentInit, AfterViewInit, OnDestroy, DoCheck {
     private _el;
     private _renderer;
@@ -17,21 +17,22 @@ export declare class NguCarousel<T> extends NguCarouselStore implements OnInit, 
     isHovered: boolean;
     arrayChanges: IterableChanges<{}>;
     carouselInt: Subscription;
-    private _defaultNodeDef;
-    private _defDirec;
     _nodeOutlet: NguCarouselOutlet;
+    _carouselWrapper: NguCarouselWrapperDirective;
     pointNumbers: Array<any>;
     listener1: () => void;
     listener2: () => void;
     listener3: () => void;
     listener4: () => void;
+    onMove: EventEmitter<NguCarousel<T>>;
+    private _defaultNodeDef;
+    private _defDirec;
     private directionSym;
     private carouselCssNode;
     private pointIndex;
     private withAnim;
     private inputs;
     private carouselLoad;
-    onMove: EventEmitter<NguCarousel<T>>;
     private carouselMain1;
     private nguItemsContainer;
     private touchContainer;
@@ -40,9 +41,9 @@ export declare class NguCarousel<T> extends NguCarouselStore implements OnInit, 
     private onResize;
     private onScrolling;
     private _trackByFn;
+    constructor(_el: ElementRef, _renderer: Renderer2, _differs: IterableDiffers, platformId: Object, cdr: ChangeDetectorRef, carouselService: NguCarouselService);
     _dataSource: any;
     dataSource: any;
-    constructor(_el: ElementRef, _renderer: Renderer2, _differs: IterableDiffers, platformId: Object, cdr: ChangeDetectorRef, carouselService: NguCarouselService);
     /** The setter is used to catch the button if the button has ngIf
      * issue id #91
      */

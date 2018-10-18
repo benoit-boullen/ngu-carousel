@@ -30,7 +30,13 @@ import { mapTo, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import { NguCarouselConfig, NguCarouselOutletContext, NguCarouselStore } from './ngu-carousel';
 import { NguCarouselService } from '../ngu-carousel.service';
-import { NguCarouselDefDirective, NguCarouselNextDirective, NguCarouselOutlet, NguCarouselPrevDirective } from '../ngu-carousel.directive';
+import {
+  NguCarouselDefDirective,
+  NguCarouselNextDirective,
+  NguCarouselOutlet,
+  NguCarouselPrevDirective,
+  NguCarouselWrapperDirective
+} from '../ngu-carousel.directive';
 
 
 // TODO calculer la taille possible pour le .ngucarsoul en fonction des boutons prev/next
@@ -40,8 +46,8 @@ import { NguCarouselDefDirective, NguCarouselNextDirective, NguCarouselOutlet, N
   selector: 'ngu-carousel',
   templateUrl: 'ngu-carousel.component.html',
   styleUrls: ['ngu-carousel.component.scss'],
-  viewProviders: [ NguCarouselService ],
-  providers: [ NguCarouselService ],
+  viewProviders: [NguCarouselService],
+  providers: [NguCarouselService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 // tslint:disable-next-line:component-class-suffix
@@ -55,23 +61,22 @@ export class NguCarousel<T> extends NguCarouselStore
   // isFirstss = 0;
   arrayChanges: IterableChanges<{}>;
   carouselInt: Subscription;
-
-  private _defaultNodeDef: NguCarouselDefDirective<any> | null;
-
-
-  @ContentChildren(NguCarouselDefDirective)
-  private _defDirec: QueryList<NguCarouselDefDirective<any>>;
-
   @ViewChild(NguCarouselOutlet)
   _nodeOutlet: NguCarouselOutlet;
-
+  @ViewChild(NguCarouselWrapperDirective)
+  _carouselWrapper: NguCarouselWrapperDirective;
   pointNumbers: Array<any> = [];
   // isFirstss = 0;
   listener1: () => void;
   listener2: () => void;
   listener3: () => void;
   listener4: () => void;
-
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output('onMove')
+  public onMove = new EventEmitter<NguCarousel<T>>();
+  private _defaultNodeDef: NguCarouselDefDirective<any> | null;
+  @ContentChildren(NguCarouselDefDirective)
+  private _defDirec: QueryList<NguCarouselDefDirective<any>>;
   private directionSym: string;
   private carouselCssNode: any;
   private pointIndex: number;
@@ -80,11 +85,6 @@ export class NguCarousel<T> extends NguCarouselStore
   private inputs: NguCarouselConfig;
   @Output('carouselLoad')
   private carouselLoad = new EventEmitter();
-
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output('onMove')
-  public onMove = new EventEmitter<NguCarousel<T>>();
-
   @ViewChild('ngucarousel', {read: ElementRef})
   private carouselMain1: ElementRef;
 
@@ -98,6 +98,18 @@ export class NguCarousel<T> extends NguCarouselStore
   private onResize: any;
   private onScrolling: any;
   private _trackByFn: TrackByFunction<T>;
+
+  constructor(
+    private _el: ElementRef,
+    private _renderer: Renderer2,
+    private _differs: IterableDiffers,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef,
+    private carouselService: NguCarouselService
+  ) {
+    super();
+    this.carouselService.setCarousel(this);
+  }
 
   _dataSource: any;
 
@@ -114,17 +126,6 @@ export class NguCarousel<T> extends NguCarouselStore
     }
   }
 
-  constructor(
-    private _el: ElementRef,
-    private _renderer: Renderer2,
-    private _differs: IterableDiffers,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef,
-    private carouselService: NguCarouselService
-  ) {
-    super();
-    this.carouselService.setCarousel(this);
-  }
 
   /** The setter is used to catch the button if the button has ngIf
    * issue id #91
@@ -212,6 +213,8 @@ export class NguCarousel<T> extends NguCarouselStore
       });
       this._onWindowScrolling();
     }
+
+
   }
 
   ngAfterContentInit() {
@@ -219,7 +222,6 @@ export class NguCarousel<T> extends NguCarouselStore
 
     this.cdr.markForCheck();
   }
-
 
 
   /** Used to reset the carousel */
@@ -276,7 +278,6 @@ export class NguCarousel<T> extends NguCarouselStore
       this._observeRenderChanges();
     }
   }
-
 
 
   private renderNodeChanges(
@@ -611,7 +612,7 @@ export class NguCarousel<T> extends NguCarouselStore
     let dism = '';
     this.styleid = `.${
       this.token
-      } > .carousel-wrapper > .ngucarousel-wrapper > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
+      } > .carousel-wrapper > .ngucarousel > .ngu-touch-container > .ngucarousel-items`;
 
     if (this.inputs.custom === 'banner') {
       this._renderer.addClass(this.carousel, 'banner');
@@ -656,13 +657,6 @@ export class NguCarousel<T> extends NguCarouselStore
                     @media (min-width:992px){${itemWidth_md}}
                     @media (min-width:1200px){${itemWidth_lg}}`;
     } else {
-
-      console.log(this._defDirec);
-      this._defDirec.forEach(item => {
-        console.log(item);
-      });
-
-
       itemStyle = `${this.styleid} .item {flex: 0 0 ${
         this.inputs.grid.all
         }px; width: ${this.inputs.grid.all}px;}`;

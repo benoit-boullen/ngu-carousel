@@ -2,9 +2,7 @@
  * Public API Surface of carousel
  */
 
-export { NguCarouselConfig } from './lib/ngu-carousel/ngu-carousel';
-
-export { NguCarouselStore } from './lib/ngu-carousel/ngu-carousel';
+export { NguCarouselConfig, NguCarouselStore, NguTransfrom } from './lib/ngu-carousel/ngu-carousel';
 
 export { NguCarouselService} from './lib/ngu-carousel.service';
 

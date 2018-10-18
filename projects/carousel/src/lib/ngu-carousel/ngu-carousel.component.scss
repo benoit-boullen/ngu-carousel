@@ -8,21 +8,26 @@
 
 .carousel-wrapper {
   display: flex;
-  flex-wrap: nowrap;
   flex-direction: row;
-  overflow: hidden;
+  overflow: visible;
   max-width: 100%;
 }
 
+/*
 .ngucarousel-wrapper {
   order: 2;
   height: 100%;
-  flex: 10 1 0;
+  flex: 0 0 0 ;
 }
+*/
 
 .ngucarousel {
   position: relative;
+  flex-wrap: nowrap;
   z-index: 10;
+  order: 2;
+  flex: 1;
+  min-width: 0; // important for item with children
 
   .ngucarousel-items {
     position: relative;
