@@ -5,7 +5,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChild, ContentChildren,
+  ContentChild,
+  ContentChildren,
   DoCheck,
   ElementRef,
   EventEmitter,
@@ -19,7 +20,8 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  PLATFORM_ID, QueryList,
+  PLATFORM_ID,
+  QueryList,
   Renderer2,
   TrackByFunction,
   ViewChild,
@@ -227,9 +229,12 @@ export class NguCarousel<T> extends NguCarouselStore
   /** Used to reset the carousel */
   public reset(withOutAnimation?: boolean): void {
     withOutAnimation && (this.withAnim = false);
-    this.carouselCssNode.innerHTML = '';
-    this.moveTo(0);
-    this._carouselPoint();
+    if (this.carouselCssNode) {
+      this.carouselCssNode.innerHTML = '';
+
+      this.moveTo(0);
+      this._carouselPoint();
+    }
   }
 
   /** this function is used to scoll the carousel when point is clicked */
@@ -285,17 +290,15 @@ export class NguCarousel<T> extends NguCarouselStore
     viewContainer: ViewContainerRef = this._nodeOutlet.viewContainer
   ) {
     if (!this.arrayChanges) return;
-
+    console.log(this.arrayChanges);
     this.arrayChanges.forEachOperation(
       (
         item: IterableChangeRecord<any>,
         adjustedPreviousIndex: number,
         currentIndex: number
       ) => {
-        // const node = this._defDirec.find(items => item.item);
         const node = this._getNodeDef(data[currentIndex], currentIndex);
-
-        if (item.previousIndex == null) {
+        if (item.previousIndex === null) {
           const context = new NguCarouselOutletContext<any>(data[currentIndex]);
           context.index = currentIndex;
           viewContainer.createEmbeddedView(
@@ -303,8 +306,9 @@ export class NguCarousel<T> extends NguCarouselStore
             context,
             currentIndex
           );
-        } else if (currentIndex == null) {
+        } else if (currentIndex === null) {
           viewContainer.remove(adjustedPreviousIndex);
+          viewContainer.clear();
         } else {
           const view = viewContainer.get(adjustedPreviousIndex);
           viewContainer.move(view, currentIndex);
@@ -333,6 +337,7 @@ export class NguCarousel<T> extends NguCarouselStore
       const viewRef = viewContainer.get(renderIndex) as any;
       const context = viewRef.context as any;
       context.count = count;
+
       context.first = renderIndex === 0;
       context.last = renderIndex === count - 1;
       context.even = renderIndex % 2 === 0;
@@ -395,7 +400,10 @@ export class NguCarousel<T> extends NguCarouselStore
         ? this.inputs.point.visible
         : true;
 
+
     this._carouselSize();
+
+
   }
 
   private _onResizing(event: any): void {
@@ -567,6 +575,7 @@ export class NguCarousel<T> extends NguCarouselStore
       this.inputs.load >= this.slideItems ? this.inputs.load : this.slideItems;
     this.speed =
       this.inputs.speed && this.inputs.speed > -1 ? this.inputs.speed : 400;
+
     this._carouselPoint();
   }
 
