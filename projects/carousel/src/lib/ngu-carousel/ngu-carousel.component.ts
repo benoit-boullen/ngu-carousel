@@ -284,13 +284,11 @@ export class NguCarousel<T> extends NguCarouselStore
     }
   }
 
-
   private renderNodeChanges(
     data: any[],
     viewContainer: ViewContainerRef = this._nodeOutlet.viewContainer
   ) {
     if (!this.arrayChanges) return;
-    console.log(this.arrayChanges);
     this.arrayChanges.forEachOperation(
       (
         item: IterableChangeRecord<any>,
@@ -400,10 +398,7 @@ export class NguCarousel<T> extends NguCarouselStore
         ? this.inputs.point.visible
         : true;
 
-
     this._carouselSize();
-
-
   }
 
   private _onResizing(event: any): void {
@@ -443,7 +438,7 @@ export class NguCarousel<T> extends NguCarouselStore
           this._touchHandling('panright', ev);
         });
       }
-      hammertime.on('panend', (ev: any) => {
+      /*hammertime.on('panend', (ev: any) => {
         if (Math.abs(ev.velocity) >= this.velocity) {
           this.touch.velocity = ev.velocity;
           let direc = 0;
@@ -462,7 +457,7 @@ export class NguCarousel<T> extends NguCarouselStore
           );
           // this._setStyle(this.nguItemsContainer.nativeElement, 'transform', '');
         }
-      });
+      });*/
       hammertime.on('hammer.input', function (ev) {
         // allow nested touch events to no propagate, this may have other side affects but works for now.
         // TODO: It is probably better to check the source element of the event and only apply the handle to the correct carousel
@@ -503,17 +498,20 @@ export class NguCarousel<T> extends NguCarouselStore
   }
 
   private _setTransformFromTouch() {
+
     if (this.touchTransform < 0) {
       this.touchTransform = 0;
     }
     const type = this.type === 'responsive' ? '%' : 'px';
 
     const maxTranslate = (this.itemWidth * this._dataSource.length) - this.carouselMain1.nativeElement.offsetWidth;
+    console.log(this.touchTransform, maxTranslate, this.itemWidth, this._dataSource.length, this.carouselMain1.nativeElement.offsetWidth);
+
+    console.log(this.itemWidth * this.touchTransform / 100);
     if (maxTranslate <= this.touchTransform) {
       this.touchTransform = maxTranslate;
       return;
     }
-
 
     this.onMove.emit(this);
     this._setStyle(
@@ -750,8 +748,6 @@ export class NguCarousel<T> extends NguCarouselStore
       }
       this._carouselScrollTwo(Btn, currentSlide, itemSpeed);
     }
-
-    // cubic-bezier(0.15, 1.04, 0.54, 1.13)
   }
 
   /** logic to scroll the carousel step 2 */
