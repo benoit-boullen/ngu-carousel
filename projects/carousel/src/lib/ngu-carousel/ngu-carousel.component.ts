@@ -504,13 +504,14 @@ export class NguCarousel<T> extends NguCarouselStore
     }
     const type = this.type === 'responsive' ? '%' : 'px';
 
-    const maxTranslate = (this.itemWidth * this._dataSource.length) - this.carouselMain1.nativeElement.offsetWidth;
-    console.log(this.touchTransform, maxTranslate, this.itemWidth, this._dataSource.length, this.carouselMain1.nativeElement.offsetWidth);
+    let  maxTranslate = (this.itemWidth * this._dataSource.length) - this.carouselMain1.nativeElement.offsetWidth;
 
-    console.log(this.itemWidth * this.touchTransform / 100);
+    if (this.type === 'responsive') {
+      maxTranslate = (maxTranslate / this.carouselMain1.nativeElement.offsetWidth) * 100;
+    }
+
     if (maxTranslate <= this.touchTransform) {
       this.touchTransform = maxTranslate;
-      return;
     }
 
     this.onMove.emit(this);
