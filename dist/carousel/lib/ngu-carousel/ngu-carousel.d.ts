@@ -10,8 +10,7 @@ export declare class NguCarouselStore {
     token: string;
     items: number;
     load: number;
-    deviceWidth: number;
-    carouselWidth: number;
+    protected _carouselWidth: number;
     itemWidth: number;
     slideItems: number;
     itemWidthPer: number;
@@ -28,7 +27,8 @@ export declare class NguCarouselStore {
     RTL: boolean;
     point: boolean;
     velocity: number;
-    constructor(touch?: Touch, vertical?: Vertical, interval?: CarouselInterval, transform?: NguTransfrom, button?: NguButton, visibleItems?: ItemsControl, deviceType?: DeviceType, type?: string, token?: string, items?: number, load?: number, deviceWidth?: number, carouselWidth?: number, itemWidth?: number, slideItems?: number, itemWidthPer?: number, itemLength?: number, currentSlide?: number, easing?: string, speed?: number, loop?: boolean, dexVal?: number, touchTransform?: number, isEnd?: boolean, isFirst?: boolean, isLast?: boolean, RTL?: boolean, point?: boolean, velocity?: number);
+    static deviceWidth: number;
+    constructor(touch?: Touch, vertical?: Vertical, interval?: CarouselInterval, transform?: NguTransfrom, button?: NguButton, visibleItems?: ItemsControl, deviceType?: DeviceType, type?: string, token?: string, items?: number, load?: number, _carouselWidth?: number, itemWidth?: number, slideItems?: number, itemWidthPer?: number, itemLength?: number, currentSlide?: number, easing?: string, speed?: number, loop?: boolean, dexVal?: number, touchTransform?: number, isEnd?: boolean, isFirst?: boolean, isLast?: boolean, RTL?: boolean, point?: boolean, velocity?: number);
 }
 export declare type DeviceType = 'xs' | 'sm' | 'md' | 'lg' | 'all';
 export declare type ButtonVisible = 'disabled' | 'hide';

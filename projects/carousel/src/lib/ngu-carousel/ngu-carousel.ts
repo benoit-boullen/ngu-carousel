@@ -1,4 +1,5 @@
 export class NguCarouselStore {
+  public static deviceWidth = 0;
   constructor(
     public touch = new Touch(),
     public vertical = new Vertical(),
@@ -11,8 +12,7 @@ export class NguCarouselStore {
     public token = '',
     public items = 0,
     public load = 0,
-    public deviceWidth = 0,
-    public carouselWidth = 0,
+    protected _carouselWidth = 0,
     public itemWidth = 0,
     public slideItems = 0,
     public itemWidthPer = 0,

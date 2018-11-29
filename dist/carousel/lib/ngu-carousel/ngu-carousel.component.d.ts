@@ -79,6 +79,8 @@ export declare class NguCarousel<T> extends NguCarouselStore implements OnInit, 
     private _observeRenderChanges;
     private _inputValidation;
     private _onResizing;
+    refreshCarouselWidth(): void;
+    readonly carouselWidth: number;
     /** Get Touch input */
     private _touch;
     /** handle touch input */

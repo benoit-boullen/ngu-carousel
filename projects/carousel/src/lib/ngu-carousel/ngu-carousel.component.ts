@@ -39,7 +39,9 @@ import {
   NguCarouselPrevDirective,
   NguCarouselWrapperDirective
 } from '../ngu-carousel.directive';
+import { Logger } from '../logger.service';
 
+const log = new Logger('NgUCarousel');
 
 // TODO calculer la taille possible pour le .ngucarsoul en fonction des boutons prev/next
 
@@ -100,6 +102,8 @@ export class NguCarousel<T> extends NguCarouselStore
   private onResize: any;
   private onScrolling: any;
   private _trackByFn: TrackByFunction<T>;
+
+  // protected _carouselWidth = 0;
 
   constructor(
     private _el: ElementRef,
@@ -191,6 +195,7 @@ export class NguCarousel<T> extends NguCarouselStore
 
   ngDoCheck() {
     this.arrayChanges = this._dataDiffer.diff(this.dataSource);
+
     if (this.arrayChanges && this._defDirec) {
       // console.log('Changes detected!');
       this._observeRenderChanges();
@@ -221,7 +226,6 @@ export class NguCarousel<T> extends NguCarouselStore
 
   ngAfterContentInit() {
     this._observeRenderChanges();
-
     this.cdr.markForCheck();
   }
 
@@ -288,6 +292,7 @@ export class NguCarousel<T> extends NguCarouselStore
     data: any[],
     viewContainer: ViewContainerRef = this._nodeOutlet.viewContainer
   ) {
+
     if (!this.arrayChanges) return;
     this.arrayChanges.forEachOperation(
       (
@@ -404,21 +409,37 @@ export class NguCarousel<T> extends NguCarouselStore
   private _onResizing(event: any): void {
     clearTimeout(this.onResize);
     this.onResize = setTimeout(() => {
-      if (this.deviceWidth !== event.target.outerWidth) {
+      if (NguCarousel.deviceWidth !== event.target.outerWidth) {
         this._setStyle(this.nguItemsContainer.nativeElement, 'transition', ``);
         this._storeCarouselData();
       }
+      this.refreshCarouselWidth();
+
     }, 500);
+  }
+
+  refreshCarouselWidth() {
+    this._carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
+  }
+
+  get carouselWidth() {
+    log.timing('carouselWidth start');
+    if (!!this._carouselWidth) {
+      this._carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
+    }
+    log.timing('carouselWidth end');
+    return this._carouselWidth;
   }
 
   /** Get Touch input */
   private _touch(): void {
+    log.debug('_touch');
     if (this.inputs.touch) {
       const hammertime = new Hammer(this.touchContainer.nativeElement);
       hammertime.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
 
       hammertime.on('panstart', (ev: any) => {
-        this.carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
+        // this.carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
         // this.touchTransform = this.transform[this.deviceType];
         this.dexVal = 0;
         this._setStyle(this.nguItemsContainer.nativeElement, 'transition', '');
@@ -468,8 +489,10 @@ export class NguCarousel<T> extends NguCarouselStore
 
   /** handle touch input */
   private _touchHandling(e: string, ev: any): void {
+    log.debug('_touchHandling', this._carouselWidth, this.carouselWidth);
     // vertical touch events seem to cause to panstart event with an odd delta
     // and a center of {x:0,y:0} so this will ignore them
+
     if (ev.center.x === 0) {
       return;
     }
@@ -481,9 +504,11 @@ export class NguCarousel<T> extends NguCarouselStore
         ? (Math.abs(ev - this.dexVal) /
         (this.vertical.enabled
           ? this.vertical.height
-          : this.carouselWidth)) *
+          : this._carouselWidth)) *
         100
         : valt;
+    log.debug(valt);
+
     this.dexVal = ev;
     this.touch.swipe = e;
     this._setTouchTransfrom(e, valt);
@@ -543,30 +568,35 @@ export class NguCarousel<T> extends NguCarouselStore
 
   /** store data based on width of the screen for the carousel */
   private _storeCarouselData(): void {
-    this.deviceWidth = isPlatformBrowser(this.platformId)
+    log.timing('start');
+
+    /*this.deviceWidth = isPlatformBrowser(this.platformId)
       ? window.innerWidth
       : 1200;
-
-    this.carouselWidth = this.carouselMain1.nativeElement.offsetWidth;
+*/
+    log.timing('m555');
+     // this.carouselWidth = this.carouselMain1.nativeElement.offsetWidth;
+    log.timing('m557');
 
     if (this.type === 'responsive') {
       this.deviceType =
-        this.deviceWidth >= 1200
+        NguCarousel.deviceWidth >= 1200
           ? 'lg'
-          : this.deviceWidth >= 992
+          : NguCarousel.deviceWidth >= 992
           ? 'md'
-          : this.deviceWidth >= 768
+          : NguCarousel.deviceWidth >= 768
             ? 'sm'
             : 'xs';
 
       this.items = this.inputs.grid[this.deviceType];
       this.itemWidth = this.carouselWidth / this.items;
+      console.log(this.itemWidth);
     } else {
       this.items = Math.ceil(this.carouselWidth / this.inputs.grid.all);
       this.itemWidth = this.inputs.grid.all;
       this.deviceType = 'all';
     }
-
+    log.timing('m575');
     this.slideItems = +(this.inputs.slide < this.items
       ? this.inputs.slide
       : this.items);
@@ -574,8 +604,9 @@ export class NguCarousel<T> extends NguCarouselStore
       this.inputs.load >= this.slideItems ? this.inputs.load : this.slideItems;
     this.speed =
       this.inputs.speed && this.inputs.speed > -1 ? this.inputs.speed : 400;
-
-    this._carouselPoint();
+    log.timing('end');
+    // this._carouselPoint();
+    // console.log(Logger.sumTiming);
   }
 
   /** Init carousel point */
@@ -762,7 +793,7 @@ export class NguCarousel<T> extends NguCarouselStore
     if (this.dexVal !== 0) {
       const val = Math.abs(this.touch.velocity);
       let somt = Math.floor(
-        (this.dexVal / val / this.dexVal) * (this.deviceWidth - this.dexVal)
+        (this.dexVal / val / this.dexVal) * (NguCarousel.deviceWidth - this.dexVal)
       );
       somt = somt > itemSpeed ? itemSpeed : somt;
       itemSpeed = somt < 200 ? 200 : somt;
