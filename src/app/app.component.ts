@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '2'
       }
     },
     {
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '3'
       }
     },
     {
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '4'
       }
     },
     {
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '5'
       }
     },
     {
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '6'
       }
     },
     {
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '7'
       }
     },
     {
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '8'
       }
     },
     {
@@ -125,7 +125,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '9'
       }
     },
     {
@@ -137,7 +137,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '10'
       }
     },
     {
@@ -149,7 +149,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '11'
       }
     },
     {
@@ -161,7 +161,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         title: 'Title 1'
       },
       content: {
-        contentitem_id: '1'
+        contentitem_id: '12'
       }
     }];
 
@@ -181,19 +181,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     5: []
   };
   public carouselTile: NguCarouselConfig = {
-    grid: {xs: 1, sm: 1, md: 6, lg: 8, all: 0},
+    grid: {xs: 3, sm: 1, md: 6, lg: 8, all: 0},
     slide: 1,
-    speed: 350,
+    /*speed: 350,
     interval: {
       timing: 3000,
       initialDelay: 1000
-    },
+    },*/
     point: {
       visible: true
     },
     load: 2,
-    velocity: 0,
-    loop: true,
+    velocity: 1,
+    loop: false,
     touch: true,
     animation: 'lazy',
     easing: 'cubic-bezier(.17,.67,.83,.67)'

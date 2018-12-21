@@ -432,6 +432,7 @@ export class NguCarousel<T> extends NguCarouselStore
       hammertime.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
 
       hammertime.on('panstart', (ev: any) => {
+        log.debug('panstart');
         this.refreshCarouselWidth();
         // this.carouselWidth = this.nguItemsContainer.nativeElement.offsetWidth;
         // this.touchTransform = this.transform[this.deviceType];
@@ -447,14 +448,19 @@ export class NguCarousel<T> extends NguCarouselStore
         });
       } else {
         hammertime.on('panleft', (ev: any) => {
+          log.debug('panleft');
           this._touchHandling('panleft', ev);
         });
         hammertime.on('panright', (ev: any) => {
+          log.debug('panright');
           this._touchHandling('panright', ev);
         });
       }
-      /*hammertime.on('panend', (ev: any) => {
-        if (Math.abs(ev.velocity) >= this.velocity) {
+      hammertime.on('panend', (ev: any) => {
+        log.debug('panend');
+        log.debug(Math.abs(ev.velocity) + ' ' + this.velocity);
+
+       /* if (Math.abs(ev.velocity) >= this.velocity) {
           this.touch.velocity = ev.velocity;
           let direc = 0;
           if (!this.RTL) {
@@ -463,7 +469,7 @@ export class NguCarousel<T> extends NguCarouselStore
             direc = this.touch.swipe === 'panright' ? 1 : 0;
           }
           this._carouselScrollOne(direc);
-        } else {
+        }*//* else {
           this.dexVal = 0;
           this._setStyle(
             this.nguItemsContainer.nativeElement,
@@ -471,8 +477,8 @@ export class NguCarousel<T> extends NguCarouselStore
             'transform 324ms cubic-bezier(0, 0, 0.2, 1)'
           );
           // this._setStyle(this.nguItemsContainer.nativeElement, 'transform', '');
-        }
-      });*/
+        }*/
+      });
       hammertime.on('hammer.input', function (ev) {
         // allow nested touch events to no propagate, this may have other side affects but works for now.
         // TODO: It is probably better to check the source element of the event and only apply the handle to the correct carousel
@@ -522,6 +528,7 @@ export class NguCarousel<T> extends NguCarouselStore
     }
     const type = this.type === 'responsive' ? '%' : 'px';
 
+    console.log(this.touchTransform);
     let  maxTranslate = (this.itemWidth * this._dataSource.length) - this.carouselWidth;
 
     if (this.type === 'responsive') {
